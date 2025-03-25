@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import { SmoothHorizontalScrolling } from "../../utils";
-import { useViewport } from "../hooks";
-import { useDispatch } from "react-redux";
-import { setMovieDetail } from "../store/actions";
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { SmoothHorizontalScrolling } from '../../utils';
+import { useViewport } from '../hooks';
+import { useDispatch } from 'react-redux';
+import { setMovieDetail } from '../store/actions';
 
 function MoviesRow(props) {
   const { movies, title, isNetflix } = props;
@@ -18,18 +18,19 @@ function MoviesRow(props) {
 
   const dispatch = useDispatch();
 
-  const handleSetMovie = (movie) => {
+  const handleSetMovie = movie => {
     dispatch(setMovieDetail(movie));
   };
 
   const handleScrollRight = () => {
-    const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
+    const maxScrollLeft =
+      sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
     const movieWidth = movieRef.current.clientWidth;
     const targetScroll = Math.min(
       sliderRef.current.scrollLeft + movieWidth * 2,
-      maxScrollLeft
+      maxScrollLeft,
     );
-    
+
     SmoothHorizontalScrolling(sliderRef.current, targetScroll);
   };
 
@@ -37,19 +38,19 @@ function MoviesRow(props) {
     const movieWidth = movieRef.current.clientWidth;
     const targetScroll = Math.max(
       sliderRef.current.scrollLeft - movieWidth * 2,
-      0
+      0,
     );
-    
+
     SmoothHorizontalScrolling(sliderRef.current, targetScroll);
   };
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = e => {
     setIsDragging(true);
     setStartX(e.pageX - sliderRef.current.offsetLeft);
     setScrollLeft(sliderRef.current.scrollLeft);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = e => {
     if (!isDragging) return;
     e.preventDefault();
     const x = e.pageX - sliderRef.current.offsetLeft;
@@ -71,13 +72,13 @@ function MoviesRow(props) {
   };
 
   // Touch events for mobile
-  const handleTouchStart = (e) => {
+  const handleTouchStart = e => {
     setIsDragging(true);
     setStartX(e.touches[0].pageX - sliderRef.current.offsetLeft);
     setScrollLeft(sliderRef.current.scrollLeft);
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = e => {
     if (!isDragging) return;
     const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
     const walk = (x - startX) * 2;
@@ -85,7 +86,7 @@ function MoviesRow(props) {
   };
 
   return (
-    <MoviesRowContainer 
+    <MoviesRowContainer
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -105,12 +106,12 @@ function MoviesRow(props) {
             ? {
                 gridTemplateColumns: `repeat(${movies.length},${
                   windowWidth > 1200
-                    ? "360px"
+                    ? '360px'
                     : windowWidth > 992
-                    ? "300px"
-                    : windowWidth > 768
-                    ? "250px"
-                    : "200px"
+                      ? '300px'
+                      : windowWidth > 768
+                        ? '250px'
+                        : '200px'
                 })`,
               }
             : {}
@@ -123,6 +124,7 @@ function MoviesRow(props) {
               let imageUrl = isNetflix
                 ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
                 : `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`;
+
               return (
                 <div
                   key={index}
@@ -135,18 +137,19 @@ function MoviesRow(props) {
                 </div>
               );
             }
+            return null;
           })}
       </MoviesSlider>
       {showControls && movies && movies.length > 0 && (
         <>
           <div
-            className={`btnLeft ${isNetflix && "isNetflix"}`}
+            className={`btnLeft ${isNetflix && 'isNetflix'}`}
             onClick={handleScrollLeft}
           >
             <FiChevronLeft />
           </div>
           <div
-            className={`btnRight ${isNetflix && "isNetflix"}`}
+            className={`btnRight ${isNetflix && 'isNetflix'}`}
             onClick={handleScrollRight}
           >
             <FiChevronRight />

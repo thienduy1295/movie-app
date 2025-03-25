@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import styled, { keyframes } from "styled-components";
-import { setMovieDetail } from "../store/actions";
-import { FaPlay, FaPlus } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
-import { AiFillLike } from "react-icons/ai";
-import { MdExpandMore, MdExpandLess } from "react-icons/md";
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import styled, { keyframes } from 'styled-components';
+import { setMovieDetail } from '../store/actions';
+import { FaPlay, FaPlus } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
+import { AiFillLike } from 'react-icons/ai';
+import { MdExpandMore, MdExpandLess } from 'react-icons/md';
 
 function MoviesDetail(props) {
   const { movie, showModal } = props;
@@ -23,12 +23,12 @@ function MoviesDetail(props) {
     };
   }, [showModal]);
 
-  const handleCloseModal = (e) => {
+  const handleCloseModal = e => {
     e.stopPropagation();
     dispatch(setMovieDetail(null));
   };
 
-  const handleModalClick = (e) => {
+  const handleModalClick = e => {
     e.stopPropagation();
   };
 
@@ -46,15 +46,17 @@ function MoviesDetail(props) {
           <button className="modal__close" onClick={handleCloseModal}>
             <IoClose />
           </button>
-          
-          <div 
-            className="modal__banner" 
+
+          <div
+            className="modal__banner"
             style={
-              movie ? {
-                backgroundImage: `url(https://image.tmdb.org/t/p/original/${
-                  movie.backdrop_path || movie.poster_path
-                })`
-              } : {}
+              movie
+                ? {
+                    backgroundImage: `url(https://image.tmdb.org/t/p/original/${
+                      movie.backdrop_path || movie.poster_path
+                    })`,
+                  }
+                : {}
             }
           >
             <div className="modal__banner-overlay">
@@ -62,14 +64,17 @@ function MoviesDetail(props) {
                 <div className="modal__title">
                   <h1>{movie && (movie.title || movie.name)}</h1>
                 </div>
-                
+
                 <div className="modal__info">
                   <div className="modal__stats">
                     <span className="modal__rating">
                       {movie && Math.round(movie.vote_average * 10)}% Match
                     </span>
                     <span className="modal__year">
-                      {movie && (movie.release_date || movie.first_air_date)?.split('-')[0]}
+                      {movie &&
+                        (movie.release_date || movie.first_air_date)?.split(
+                          '-',
+                        )[0]}
                     </span>
                     {movie && movie.runtime && (
                       <span className="modal__runtime">
@@ -96,10 +101,15 @@ function MoviesDetail(props) {
                     </button>
                   </div>
 
-                  <div className={`modal__overview ${isExpanded ? 'expanded' : ''}`}>
+                  <div
+                    className={`modal__overview ${isExpanded ? 'expanded' : ''}`}
+                  >
                     <p>{movie && movie.overview}</p>
                     {movie && movie.overview && movie.overview.length > 200 && (
-                      <button className="modal__overview-toggle" onClick={toggleOverview}>
+                      <button
+                        className="modal__overview-toggle"
+                        onClick={toggleOverview}
+                      >
                         {isExpanded ? <MdExpandLess /> : <MdExpandMore />}
                         {isExpanded ? 'Show less' : 'Show more'}
                       </button>
@@ -110,10 +120,12 @@ function MoviesDetail(props) {
                     <div className="modal__detail-item">
                       <span className="label">Genres:</span>
                       <span className="value">
-                        {movie && movie.genres && movie.genres.map(genre => genre.name).join(', ')}
+                        {movie &&
+                          movie.genres &&
+                          movie.genres.map(genre => genre.name).join(', ')}
                       </span>
                     </div>
-                    
+
                     <div className="modal__detail-item">
                       <span className="label">Original Language:</span>
                       <span className="value">
@@ -289,7 +301,8 @@ const MoviesDetailModal = styled.div`
       color: #46d369;
     }
 
-    &__year, &__runtime {
+    &__year,
+    &__runtime {
       color: #fff;
     }
 

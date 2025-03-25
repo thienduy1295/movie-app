@@ -1,25 +1,25 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { MdSearch, MdAccountCircle } from "react-icons/md";
-import { useScrollY } from "../hooks";
-import { useSelector, useDispatch } from "react-redux";
-import { initiateLogin } from "../store/actions/auth";
-import logoImage from "../../assets/images/netflixlogo.png";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { MdSearch, MdAccountCircle } from 'react-icons/md';
+import { useScrollY } from '../hooks';
+import { useSelector, useDispatch } from 'react-redux';
+import { initiateLogin } from '../store/actions/auth';
+import logoImage from '../../assets/images/netflixlogo.png';
 
 function Navbar() {
   const [scrollY] = useScrollY();
-  const [keywords, setKeywords] = useState("");
+  const [keywords, setKeywords] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated, accountDetails } = useSelector((state) => state.auth);
+  const { isAuthenticated, accountDetails } = useSelector(state => state.auth);
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = e => {
     let keywords = e.target.value;
     setKeywords(keywords);
     keywords.length > 0
       ? navigate(`/search?keyword=${keywords.trim()}`)
-      : navigate("/");
+      : navigate('/');
   };
 
   const handleLogin = () => {
@@ -30,8 +30,8 @@ function Navbar() {
     <Navigation
       style={
         scrollY < 50
-          ? { background: "transparent" }
-          : { background: "var(--color-background)" }
+          ? { background: 'transparent' }
+          : { background: 'var(--color-background)' }
       }
     >
       <NavContainer>
@@ -126,7 +126,7 @@ const NavLink = styled(Link)`
   font-size: 1rem;
   font-weight: 500;
   position: relative;
-  
+
   &:after {
     content: '';
     position: absolute;
@@ -137,7 +137,7 @@ const NavLink = styled(Link)`
     background: var(--color-accent);
     transition: width 0.3s ease;
   }
-  
+
   &:hover:after {
     width: 100%;
   }
@@ -175,12 +175,12 @@ const SearchInput = styled.input`
   border-radius: var(--border-radius-md);
   color: var(--color-white);
   font-size: 0.9rem;
-  
+
   &:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.15);
   }
-  
+
   &::placeholder {
     color: var(--color-light-gray);
   }
@@ -212,7 +212,7 @@ const LoginButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-normal);
-  
+
   &:hover {
     background: var(--color-accent-hover);
     transform: translateY(-2px);

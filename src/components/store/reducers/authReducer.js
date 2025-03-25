@@ -3,7 +3,7 @@ import {
   SET_ACCOUNT_DETAILS,
   SET_AUTH_ERROR,
   LOGOUT,
-} from "../actions/auth";
+} from '../actions/auth';
 
 const initialState = {
   sessionId: null,
@@ -41,4 +41,4 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export default authReducer; 
+export default authReducer;

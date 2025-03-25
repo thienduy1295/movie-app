@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import {
   getActionMovies,
   getComedyMovies,
@@ -10,8 +10,8 @@ import {
   getRomanceMovies,
   getTopRatedMovies,
   getTrendingMovies,
-} from "../store/actions";
-import MoviesRow from "./MoviesRow";
+} from '../store/actions';
+import MoviesRow from './MoviesRow';
 
 const Contents = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Contents = () => {
     HorrorMovies,
     RomanceMovies,
     Documentaries,
-  } = useSelector((state) => state.infoMovies);
+  } = useSelector(state => state.infoMovies);
 
   useEffect(() => {
     const fetchAllMovies = () => {
@@ -43,14 +43,14 @@ const Contents = () => {
 
   // Movie category configuration for cleaner rendering
   const movieCategories = [
-    { movies: NetflixOriginals, title: "Netflix Originals", isNetflix: true },
-    { movies: TrendingMovies, title: "Trending Movies", isNetflix: true },
-    { movies: TopRatedMovies, title: "Top Rated Movies", isNetflix: true },
-    { movies: ActionMovies, title: "Action Movies" },
-    { movies: ComedyMovies, title: "Comedy Movies" },
-    { movies: HorrorMovies, title: "Horror Movies" },
-    { movies: RomanceMovies, title: "Romance Movies" },
-    { movies: Documentaries, title: "Documentaries" },
+    { movies: NetflixOriginals, title: 'Netflix Originals', isNetflix: true },
+    { movies: TrendingMovies, title: 'Trending Movies', isNetflix: true },
+    { movies: TopRatedMovies, title: 'Top Rated Movies', isNetflix: true },
+    { movies: ActionMovies, title: 'Action Movies' },
+    { movies: ComedyMovies, title: 'Comedy Movies' },
+    { movies: HorrorMovies, title: 'Horror Movies' },
+    { movies: RomanceMovies, title: 'Romance Movies' },
+    { movies: Documentaries, title: 'Documentaries' },
   ];
 
   return (
@@ -93,7 +93,10 @@ const BackgroundPattern = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px
+  );
   background-size: 40px 40px;
   z-index: -1;
   opacity: 0.3;
@@ -108,7 +111,7 @@ const SectionHeader = styled.h2`
   letter-spacing: 1px;
   position: relative;
   padding-bottom: 15px;
-  
+
   &:after {
     content: '';
     position: absolute;
@@ -117,10 +120,15 @@ const SectionHeader = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background: linear-gradient(to right, rgba(255,0,0,0.5), red, rgba(255,0,0,0.5));
+    background: linear-gradient(
+      to right,
+      rgba(255, 0, 0, 0.5),
+      red,
+      rgba(255, 0, 0, 0.5)
+    );
     border-radius: 2px;
   }
-  
+
   @media (max-width: 768px) {
     font-size: 1.8rem;
   }
@@ -149,16 +157,16 @@ const CategorySection = styled.div`
   border-radius: 8px;
   padding: 10px;
   transition: all 0.4s ease;
-  
+
   &:hover {
     transform: scale(1.01);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
-  
+
   @media (max-width: 768px) {
     padding: 5px;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;

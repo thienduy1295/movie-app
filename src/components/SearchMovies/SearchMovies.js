@@ -7,7 +7,7 @@ import { getSearchMovies, setMovieDetail } from '../store/actions';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
-function SearchMovies(props) {
+function SearchMovies() {
   const [windowWidth] = useViewport();
   const dispatch = useDispatch();
   const { SearchMovies } = useSelector(state => state.infoMovies);
@@ -28,14 +28,15 @@ function SearchMovies(props) {
               windowWidth > 1200
                 ? 5
                 : windowWidth > 992
-                ? 4
-                : windowWidth > 768
-                ? 3
-                : windowWidth > 600
-                ? 2
-                : 1
+                  ? 4
+                  : windowWidth > 768
+                    ? 3
+                    : windowWidth > 600
+                      ? 2
+                      : 1
             },auto)`,
-          }}>
+          }}
+        >
           {SearchMovies.map((movie, index) => {
             if (movie.backdrop_path !== null && movie.media_type !== 'person') {
               const imageUrl = `https://image.tmdb.org/t/p/w500/${
@@ -45,12 +46,14 @@ function SearchMovies(props) {
                 <div
                   className="movieItem"
                   key={index}
-                  onClick={() => dispatch(setMovieDetail(movie))}>
+                  onClick={() => dispatch(setMovieDetail(movie))}
+                >
                   <img src={imageUrl} alt={movie.title || movie.name} />
                   <span>{movie.title || movie.name}</span>
                 </div>
               );
             }
+            return null;
           })}
         </div>
       ) : (

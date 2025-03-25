@@ -1,12 +1,12 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
-import { logout } from "../store/actions/auth";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { logout } from '../store/actions/auth';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const { accountDetails } = useSelector((state) => state.auth);
+  const { accountDetails } = useSelector(state => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -24,12 +24,16 @@ const Profile = () => {
               alt="User avatar"
             />
           ) : (
-            <DefaultAvatar>{accountDetails.username?.[0]?.toUpperCase()}</DefaultAvatar>
+            <DefaultAvatar>
+              {accountDetails.username?.[0]?.toUpperCase()}
+            </DefaultAvatar>
           )}
         </Avatar>
         <UserInfo>
           <h1>{accountDetails.username}</h1>
-          <p>Member since {new Date(accountDetails.created_at).getFullYear()}</p>
+          <p>
+            Member since {new Date(accountDetails.created_at).getFullYear()}
+          </p>
         </UserInfo>
       </ProfileHeader>
 
@@ -133,7 +137,7 @@ const StatCard = styled.div`
   a {
     color: var(--color-accent);
     text-decoration: none;
-    
+
     &:hover {
       text-decoration: underline;
     }
@@ -156,4 +160,4 @@ const LogoutButton = styled.button`
   }
 `;
 
-export default Profile; 
+export default Profile;

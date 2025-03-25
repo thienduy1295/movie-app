@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import ReactPlayer from "react-player";
-import { VscMute, VscUnmute } from "react-icons/vsc";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
+import { VscMute, VscUnmute } from 'react-icons/vsc';
+import styled from 'styled-components';
 
 function Intro() {
   const [isMuted, setIsMuted] = useState(true);
@@ -19,21 +19,23 @@ function Intro() {
       />
       <div className="infoIntro">
         <h1 className="headingIntro">
-          <span style={{ color: "red" }}>NETFLIX</span> | Spectrum
+          <span style={{ color: 'red' }}>NETFLIX</span> | Spectrum
         </h1>
         <p className="overviewIntro">
-        Get transported into another world with Charles Khoury and Tosh Kodama's surreal intro sequence... And discover your shade of story with "Spectrum," Netflix Australia's interactive video.
+          Get transported into another world with Charles Khoury and Tosh
+          Kodama's surreal intro sequence... And discover your shade of story
+          with "Spectrum," Netflix Australia's interactive video.
         </p>
       </div>
       {isMuted ? (
         <VscMute
           className="btnVolume"
-          onClick={() => setIsMuted((prev) => !prev)}
+          onClick={() => setIsMuted(prev => !prev)}
         />
       ) : (
         <VscUnmute
           className="btnVolume"
-          onClick={() => setIsMuted((prev) => !prev)}
+          onClick={() => setIsMuted(prev => !prev)}
         />
       )}
       <div className="fadeBottom"></div>

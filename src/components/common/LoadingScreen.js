@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const LoadingScreen = () => {
   return (
@@ -65,4 +65,4 @@ const LoadingText = styled.p`
   animation: ${pulse} 1.5s ease-in-out infinite;
 `;
 
-export default LoadingScreen; 
+export default LoadingScreen;

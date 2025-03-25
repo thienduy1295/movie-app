@@ -8,7 +8,8 @@ const Footer = () => {
     <FooterPanel
       style={{
         backgroundImage: `url(${backgroundImg})`,
-      }}>
+      }}
+    >
       <div className="footer__content ">
         <div className="footer__content__logo">
           <div className="logo">
@@ -41,7 +42,8 @@ const Footer = () => {
           <a
             href="https://github.com/lukehoang1905"
             target={'_blank'}
-            rel="noreferrer">
+            rel="noreferrer"
+          >
             Duy Cao
           </a>
         </p>

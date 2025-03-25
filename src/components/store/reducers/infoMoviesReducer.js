@@ -1,4 +1,4 @@
-import * as Types from "../types";
+import * as Types from '../types';
 
 const reducerMoviesInitialState = {
   NetflixOriginals: null,
@@ -42,4 +42,4 @@ const infoMoviesReducer = (state = reducerMoviesInitialState, action) => {
   }
 };
 
-export default infoMoviesReducer; 
+export default infoMoviesReducer;

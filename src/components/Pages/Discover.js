@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import MoviesRow from "../Contents/MoviesRow";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import MoviesRow from '../Contents/MoviesRow';
 
-const API_KEY = "935e07ca69489569f7c2f79bcad5cdfb";
-const BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = '935e07ca69489569f7c2f79bcad5cdfb';
+const BASE_URL = 'https://api.themoviedb.org/3';
 
 const Discover = () => {
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState("");
-  const [sortBy, setSortBy] = useState("popularity.desc");
+  const [selectedGenre, setSelectedGenre] = useState('');
+  const [sortBy, setSortBy] = useState('popularity.desc');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchGenres = async () => {
       try {
         const response = await axios.get(
-          `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`
+          `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`,
         );
         setGenres(response.data.genres);
       } catch (error) {
-        console.error("Error fetching genres:", error);
+        console.error('Error fetching genres:', error);
       }
     };
     fetchGenres();
@@ -32,12 +32,12 @@ const Discover = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&with_genres=${selectedGenre}&page=1`
+          `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=${sortBy}&with_genres=${selectedGenre}&page=1`,
         );
         setMovies(response.data.results);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error('Error fetching movies:', error);
         setIsLoading(false);
       }
     };
@@ -56,10 +56,10 @@ const Discover = () => {
           <label>Genre:</label>
           <Select
             value={selectedGenre}
-            onChange={(e) => setSelectedGenre(e.target.value)}
+            onChange={e => setSelectedGenre(e.target.value)}
           >
             <option value="">All Genres</option>
-            {genres.map((genre) => (
+            {genres.map(genre => (
               <option key={genre.id} value={genre.id}>
                 {genre.name}
               </option>
@@ -69,7 +69,7 @@ const Discover = () => {
 
         <FilterGroup>
           <label>Sort By:</label>
-          <Select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <Select value={sortBy} onChange={e => setSortBy(e.target.value)}>
             <option value="popularity.desc">Popularity Descending</option>
             <option value="popularity.asc">Popularity Ascending</option>
             <option value="vote_average.desc">Rating Descending</option>
@@ -98,12 +98,12 @@ const DiscoverContainer = styled.div`
 
 const DiscoverHeader = styled.div`
   margin-bottom: 40px;
-  
+
   h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
   }
-  
+
   p {
     color: var(--color-light-gray);
     font-size: 1.1rem;
@@ -121,7 +121,7 @@ const FilterGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  
+
   label {
     font-size: 1.1rem;
     color: var(--color-light-gray);
@@ -137,16 +137,16 @@ const Select = styled.select`
   font-size: 1rem;
   cursor: pointer;
   transition: var(--transition-normal);
-  
+
   &:hover {
     background: rgba(255, 255, 255, 0.15);
   }
-  
+
   &:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.2);
   }
-  
+
   option {
     background: var(--color-background);
     color: var(--color-white);
@@ -160,4 +160,4 @@ const LoadingMessage = styled.div`
   padding: 40px;
 `;
 
-export default Discover; 
+export default Discover;
