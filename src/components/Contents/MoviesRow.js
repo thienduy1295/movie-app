@@ -10,9 +10,10 @@ function MoviesRow(props) {
   const { movies, title, isNetflix } = props;
   const sliderRef = useRef();
   const movieRef = useRef();
-  const [dragDown, setDragDown] = useState(0);
-  const [dragMove, setDragMove] = useState(0);
-  const [isDrag, setIsDrag] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
   const [windowWidth] = useViewport();
 
   const dispatch = useDispatch();
@@ -22,58 +23,83 @@ function MoviesRow(props) {
   };
 
   const handleScrollRight = () => {
-    const maxScrollLeft =
-      sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
-    if (sliderRef.current.scrollLeft < maxScrollLeft) {
-      SmoothHorizontalScrolling(
-        sliderRef.current,
-        250,
-        movieRef.current.clientWidth * 2,
-        sliderRef.current.scrollLeft
-      );
-    }
+    const maxScrollLeft = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
+    const movieWidth = movieRef.current.clientWidth;
+    const targetScroll = Math.min(
+      sliderRef.current.scrollLeft + movieWidth * 2,
+      maxScrollLeft
+    );
+    
+    SmoothHorizontalScrolling(sliderRef.current, targetScroll);
   };
 
   const handleScrollLeft = () => {
-    if (sliderRef.current.scrollLeft > 0) {
-      SmoothHorizontalScrolling(
-        sliderRef.current,
-        250,
-        -movieRef.current.clientWidth * 2,
-        sliderRef.current.scrollLeft
-      );
-    }
+    const movieWidth = movieRef.current.clientWidth;
+    const targetScroll = Math.max(
+      sliderRef.current.scrollLeft - movieWidth * 2,
+      0
+    );
+    
+    SmoothHorizontalScrolling(sliderRef.current, targetScroll);
   };
 
-  useEffect(() => {
-    if (isDrag) {
-      if (dragMove < dragDown) handleScrollRight();
-      if (dragMove > dragDown) handleScrollLeft();
-    }
-  }, [dragDown, dragMove, isDrag]);
-
-  const onDragStart = (e) => {
-    setIsDrag(true);
-    setDragDown(e.screenX);
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
   };
 
-  const onDragEnd = (e) => {
-    setIsDrag(false);
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  const onDragEnter = (e) => {
-    setDragMove(e.screenX);
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseEnter = () => {
+    setShowControls(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowControls(false);
+    setIsDragging(false);
+  };
+
+  // Touch events for mobile
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
   return (
-    <MoviesRowContainer draggable="false">
+    <MoviesRowContainer 
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <h1 className="heading">{title}</h1>
       <MoviesSlider
         ref={sliderRef}
-        draggable="true"
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragEnter={onDragEnter}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleMouseUp}
+        className={isDragging ? 'dragging' : ''}
         style={
           movies && movies.length > 0
             ? {
@@ -102,7 +128,6 @@ function MoviesRow(props) {
                   key={index}
                   className="movieItem"
                   ref={movieRef}
-                  draggable="false"
                   onClick={() => handleSetMovie(movie)}
                 >
                   <img src={imageUrl} alt="" draggable="false" />
@@ -112,18 +137,22 @@ function MoviesRow(props) {
             }
           })}
       </MoviesSlider>
-      <div
-        className={`btnLeft ${isNetflix && "isNetflix"}`}
-        onClick={handleScrollLeft}
-      >
-        <FiChevronLeft />
-      </div>
-      <div
-        className={`btnRight ${isNetflix && "isNetflix"}`}
-        onClick={handleScrollRight}
-      >
-        <FiChevronRight />
-      </div>
+      {showControls && movies && movies.length > 0 && (
+        <>
+          <div
+            className={`btnLeft ${isNetflix && "isNetflix"}`}
+            onClick={handleScrollLeft}
+          >
+            <FiChevronLeft />
+          </div>
+          <div
+            className={`btnRight ${isNetflix && "isNetflix"}`}
+            onClick={handleScrollRight}
+          >
+            <FiChevronRight />
+          </div>
+        </>
+      )}
     </MoviesRowContainer>
   );
 }
@@ -159,6 +188,7 @@ const MoviesRowContainer = styled.div`
     display: flex;
     align-items: center;
     transform: translateY(-20%);
+    transition: all 0.3s ease;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.8);
@@ -195,6 +225,7 @@ const MoviesRowContainer = styled.div`
     display: flex;
     align-items: center;
     transform: translateY(-20%);
+    transition: all 0.3s ease;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.8);
@@ -229,6 +260,16 @@ const MoviesSlider = styled.div`
   padding-top: 28px;
   padding-bottom: 28px;
   scroll-behavior: smooth;
+  cursor: grab;
+
+  &.dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &:hover .movieItem {
     opacity: 0.5;

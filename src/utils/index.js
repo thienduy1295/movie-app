@@ -1,14 +1,23 @@
-export function SmoothHorizontalScrolling(e, time, amount, start) {
-  let eAmt = amount / 100;
-  let curTime = 0;
-  let scrollCounter = 0;
-  const y = window.scrollY;
-  while (curTime <= time) {
-    window.setTimeout(SHS_B, curTime, e, scrollCounter, eAmt, start, y);
-    curTime += time / 100;
-    scrollCounter++;
+export function SmoothHorizontalScrolling(element, targetPosition, duration = 500) {
+  const start = element.scrollLeft;
+  const distance = targetPosition - start;
+  const startTime = performance.now();
+
+  function animation(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    // Easing function: easeOutCubic
+    const ease = 1 - Math.pow(1 - progress, 3);
+    
+    element.scrollLeft = start + distance * ease;
+
+    if (progress < 1) {
+      requestAnimationFrame(animation);
+    }
   }
-  window.scrollTo(0, y);
+
+  requestAnimationFrame(animation);
 }
 
 function SHS_B(e, sc, eAmt, start, y) {

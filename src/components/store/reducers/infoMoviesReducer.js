@@ -14,7 +14,7 @@ const reducerMoviesInitialState = {
   getMovieDetail: null,
 };
 
-const reducerMovies = (state = reducerMoviesInitialState, action) => {
+const infoMoviesReducer = (state = reducerMoviesInitialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case Types.GET_NETFLIX_ORIGINALS:
@@ -37,9 +37,9 @@ const reducerMovies = (state = reducerMoviesInitialState, action) => {
       return { ...state, MovieDetail: payload };
     case Types.GET_SEARCH_MOVIES:
       return { ...state, SearchMovies: payload };
-
     default:
       return state;
   }
 };
-export default reducerMovies;
+
+export default infoMoviesReducer; 

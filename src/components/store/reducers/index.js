@@ -1,7 +1,10 @@
 import { combineReducers } from "redux";
-import reducerMovies from "./reducerMovies";
+import infoMoviesReducer from "./infoMoviesReducer";
+import authReducer from "./authReducer";
 
 const rootReducer = combineReducers({
-  infoMovies: reducerMovies,
+  infoMovies: infoMoviesReducer,
+  auth: authReducer,
 });
+
 export default rootReducer;

@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import styled from "styled-components";
-import { useViewport } from "../hooks";
-import { getSearchMovies, setMovieDetail } from "../store/actions";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+import { useViewport } from '../hooks';
+import { getSearchMovies, setMovieDetail } from '../store/actions';
 
 const useQuery = () => new URLSearchParams(useLocation().search);
 
 function SearchMovies(props) {
   const [windowWidth] = useViewport();
   const dispatch = useDispatch();
-  const { SearchMovies } = useSelector((state) => state.infoMovies);
+  const { SearchMovies } = useSelector(state => state.infoMovies);
 
-  const keyword = useQuery().get("keyword");
+  const keyword = useQuery().get('keyword');
 
   useEffect(() => {
     if (keyword) dispatch(getSearchMovies(keyword));
@@ -35,10 +35,9 @@ function SearchMovies(props) {
                 ? 2
                 : 1
             },auto)`,
-          }}
-        >
+          }}>
           {SearchMovies.map((movie, index) => {
-            if (movie.backdrop_path !== null && movie.media_type !== "person") {
+            if (movie.backdrop_path !== null && movie.media_type !== 'person') {
               const imageUrl = `https://image.tmdb.org/t/p/w500/${
                 movie.backdrop_path || movie.poster_path
               }`;
@@ -46,8 +45,7 @@ function SearchMovies(props) {
                 <div
                   className="movieItem"
                   key={index}
-                  onClick={() => dispatch(setMovieDetail(movie))}
-                >
+                  onClick={() => dispatch(setMovieDetail(movie))}>
                   <img src={imageUrl} alt={movie.title || movie.name} />
                   <span>{movie.title || movie.name}</span>
                 </div>

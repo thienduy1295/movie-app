@@ -1,15 +1,14 @@
-import styled from "styled-components";
-import logoImage from "../../assets/images/netflixlogo.png";
-import backgroundImg from "../../assets/images/footer-bg.png";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import styled from 'styled-components';
+import logoImage from '../../assets/images/netflixlogo.png';
+import backgroundImg from '../../assets/images/footer-bg.png';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const Footer = () => {
   return (
     <FooterPanel
       style={{
         backgroundImage: `url(${backgroundImg})`,
-      }}
-    >
+      }}>
       <div className="footer__content ">
         <div className="footer__content__logo">
           <div className="logo">
@@ -38,12 +37,11 @@ const Footer = () => {
       </div>
       <div className="signature">
         <p>
-          @2022 Made with <FavoriteBorderIcon /> by{" "}
+          @2022 Made with <FavoriteBorderIcon /> by{' '}
           <a
             href="https://github.com/lukehoang1905"
-            target={"_blank"}
-            rel="noreferrer"
-          >
+            target={'_blank'}
+            rel="noreferrer">
             Duy Cao
           </a>
         </p>

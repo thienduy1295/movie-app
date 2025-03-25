@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useViewport = () => {
   const [windowWidth, setWindowWidth] = useState(
-    window.innerWidth || document.documentElement.clientWidth
+    window.innerWidth || document.documentElement.clientWidth,
   );
   useEffect(() => {
     const handleWindowWidth = () => {
@@ -10,9 +10,9 @@ export const useViewport = () => {
       setWindowWidth(width);
     };
     handleWindowWidth();
-    window.addEventListener("resize", handleWindowWidth);
+    window.addEventListener('resize', handleWindowWidth);
     return () => {
-      window.removeEventListener("resize", handleWindowWidth);
+      window.removeEventListener('resize', handleWindowWidth);
     };
   }, []);
   return [windowWidth];

@@ -1,5 +1,17 @@
 import axios from "axios";
 import * as Types from "../types";
+import {
+  SET_SESSION_ID,
+  SET_ACCOUNT_DETAILS,
+  SET_AUTH_ERROR,
+  LOGOUT,
+  checkSession,
+  initiateLogin,
+  handleAuthCallback,
+  logout,
+  addToWatchlist,
+  addToFavorites,
+} from "./auth";
 
 const API_KEY = "935e07ca69489569f7c2f79bcad5cdfb";
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -129,4 +141,17 @@ export const getSearchMovies = (keywords) => async (dispatch) => {
   } catch (error) {
     console.log("Get Search Movies error: ", error);
   }
+};
+
+export {
+  checkSession,
+  initiateLogin,
+  handleAuthCallback,
+  logout,
+  addToWatchlist,
+  addToFavorites,
+  SET_SESSION_ID,
+  SET_ACCOUNT_DETAILS,
+  SET_AUTH_ERROR,
+  LOGOUT,
 };

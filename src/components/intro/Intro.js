@@ -14,20 +14,15 @@ function Intro() {
         height="100%"
         volume={1}
         muted={isMuted}
-        url="https://vimeo.com/235307580"
+        url="https://vimeo.com/125188503"
         className="videoIntro"
       />
       <div className="infoIntro">
         <h1 className="headingIntro">
-          <span style={{ color: "red" }}>NETFLIX</span> | Wormwood
+          <span style={{ color: "red" }}>NETFLIX</span> | Spectrum
         </h1>
         <p className="overviewIntro">
-          Materia for Netflix We had the exciting task to visualize the LSD trip
-          sequences for Netflix' upcoming documentary series „Wormwood“ by Oscar
-          winning director Errol Morris (director of „The Fog of War“). This
-          six-part series probes the mysterious death of a Cold War military
-          scientist involved in a secret biological warfare program. Starting
-          December 15, 2017.
+        Get transported into another world with Charles Khoury and Tosh Kodama's surreal intro sequence... And discover your shade of story with "Spectrum," Netflix Australia's interactive video.
         </p>
       </div>
       {isMuted ? (
